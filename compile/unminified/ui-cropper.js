@@ -2805,42 +2805,9 @@ angular.module('uiCropper').factory('cropHost', ['$document', '$q', 'cropAreaCir
 
                     cropEXIF.getData(newImage, function () {
                         var orientation = cropEXIF.getTag(newImage, 'Orientation');
-                            //// canvas.toDataURL will only work if the canvas isn't too large. Resize to 1000px.
-                            var maxWorH = 1000;
-                            if (cw > maxWorH || ch > maxWorH) {
-                                var p = 0;
-                                if (cw > maxWorH) {
-                                    p = (maxWorH) / cw;
-                                    cw = maxWorH;
-                                    ch = p * ch;
-                                } else if (ch > maxWorH) {
-                                    p = (maxWorH) / ch;
-                                    ch = maxWorH;
-                                    cw = p * cw;
-                                }
-
-                                cy = p * cy;
-                                cx = p * cx;
-                                rw = p * rw;
-                                rh = p * rh;
-                            }
-
-                            canvas.width = cw;
-                            canvas.height = ch;
-                            ctx.rotate(deg * Math.PI / 180);
-                            ctx.drawImage(newImage, cx, cy, rw, rh);
-
-                            image = new Image();
-                            image.onload = function () {
-                                resetCropHost();
-                                events.trigger('image-updated');
-                            };
-
-                            image.src = canvas.toDataURL(resImgFormat);
-                        } else {
-                            image = newImage;
-                            events.trigger('image-updated');
-                        }
+                    
+                        image = newImage;
+                        events.trigger('image-updated');
                         resetCropHost();
                     });
                 };
